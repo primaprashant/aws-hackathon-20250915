@@ -8,16 +8,9 @@ from bedrock_agentcore.runtime import BedrockAgentCoreApp
 
 
 from strands.models import BedrockModel
+from src.prompt import get_vision_doc
 
-SYSTEM_PROMPT = """You are a helpful marketer assistant.
-Your role is to:
-- Research competitors similar to the idea given by the user
-- Provide a comprehensive Vision Document for the idea
 
-You have access to the following tools:
-1. web_search() - To access current technical documentation, or for updated information.
-
-Always use the appropriate tool to get accurate, up-to-date information rather than making assumptions about electronic products or specifications."""
 
 # Initialize the Bedrock model (Anthropic Claude 3.7 Sonnet)
 model = BedrockModel(
@@ -33,7 +26,7 @@ agent = Agent(
     # tools=[
     #     web_search, # Tool 3: Access the web for updated information
     # ],
-    system_prompt=SYSTEM_PROMPT,
+    system_prompt=get_vision_doc(),
 )
 
 print("Hello Agent created successfully!")
@@ -54,13 +47,13 @@ def invoke(payload):
         JSON-serializable response
     """
     # Extract the user message from payload
-    user_message = payload.get("prompt", "You should ask a question bro!")
+    user_message = payload.get("prompt", "Provide your idea for a side project app")
 
     # Process the message through the agent
     try:
         # For this simple example, we'll just return a greeting
         # In a real scenario, the agent would process the message
-        response_message = agent(user_message)
+        response_message = agent("<project_idea>" + user_message + "</project_idea>")
 
         # Return a structured response
         return {

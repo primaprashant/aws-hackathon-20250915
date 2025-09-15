@@ -1,12 +1,8 @@
-def get_vision_doc(idea: str) -> str:
+def get_vision_doc() -> str:
     return f"""
 You will be creating a comprehensive vision document for a side project app idea. Your goal is to transform a basic project concept into a detailed launch strategy that covers all essential aspects needed to successfully bring the app to market.
 
-Here is the project idea you'll be working with:
-
-<project_idea>
-{idea}
-</project_idea>
+The project idea you'll be working with will be provided by the user.
 
 Your task is to create a comprehensive vision document that will serve as a roadmap for launching this app. The document should be practical, actionable, and thorough.
 
@@ -44,7 +40,7 @@ Your vision document must include the following sections:
 - Technical SEO considerations
 - Local SEO if applicable
 
-**Branding & Design**: 
+**Branding & Design**:
 - Logo concept and design direction
 - Brand personality and voice
 - Color scheme and visual identity
