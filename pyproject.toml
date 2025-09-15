@@ -11,4 +11,5 @@ dependencies = [
     "strands-agents-tools>=0.2.7",
     "boto3>=1.26.0",
     "tavily-python>=0.7.12",
+    "pydantic>=2.11.9",
 ]
