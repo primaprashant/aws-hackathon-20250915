@@ -63,7 +63,7 @@ Your final output should be a complete, well-structured vision document that som
 
 
 
-# for 2 step agent
+# to include web search results
 
 def get_vision_doc_2() -> str:
     return f"""
@@ -80,7 +80,7 @@ For your search, focus on finding information about:
 - Technology approaches
 - Target audiences
 
-Your task is to create a comprehensive vision document that will serve as a roadmap for launching this app. The document should be practical, actionable, and thorough.
+Your task is to create a comprehensive vision document that will serve as a roadmap for launching this app. The document should be practical, actionable, and thorough. The document should be based on the project idea and the information you found from the web search.
 
 Before writing your final vision document, use the scratchpad below to analyze the project idea and plan your approach:
 
