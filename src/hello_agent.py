@@ -6,11 +6,30 @@ This agent demonstrates the minimal setup needed to deploy with Strands and AWS 
 from strands import Agent
 from bedrock_agentcore.runtime import BedrockAgentCoreApp
 
-# Initialize the Strands agent
+
+from strands.models import BedrockModel
+from src.prompt import get_vision_doc
+
+
+
+# Initialize the Bedrock model (Anthropic Claude 3.7 Sonnet)
+model = BedrockModel(
+    model_id="us.anthropic.claude-3-7-sonnet-20250219-v1:0",
+    temperature=0.3,
+    region_name='us-west-2',
+)
+
+# Create the customer support agent with all tools
 agent = Agent(
     name="HelloAgent",
-    description="A simple agent that returns a hello message"
+    model=model,
+    # tools=[
+    #     web_search, # Tool 3: Access the web for updated information
+    # ],
+    system_prompt=get_vision_doc(),
 )
+
+print("Hello Agent created successfully!")
 
 # Initialize the Bedrock AgentCore app
 app = BedrockAgentCoreApp()
@@ -28,13 +47,13 @@ def invoke(payload):
         JSON-serializable response
     """
     # Extract the user message from payload
-    user_message = payload.get("prompt", "Hello")
+    user_message = payload.get("prompt", "Provide your idea for a side project app")
 
     # Process the message through the agent
     try:
         # For this simple example, we'll just return a greeting
         # In a real scenario, the agent would process the message
-        response_message = f"Hello from AWS Bedrock Agent! You said: '{user_message}'"
+        response_message = agent("<project_idea>" + user_message + "</project_idea>")
 
         # Return a structured response
         return {
